@@ -1,4 +1,6 @@
-/* Database configuration. Create a connection pool to PostgreSQL. Connecting Node.js to the PostgreSQL database */
+/* Runtime database configuration that application loads and uses while running. 
+Creates a connection pool to PostgreSQL. 
+Connects Node.js to the PostgreSQL database */
 
 // Import the pg module/package to interact with PostgreSQL
 import pkg from 'pg';
