@@ -1,5 +1,7 @@
 // Import the TaskModel to interact with the tasks data in the database
 import { TaskModel } from "../models/tasks.js";
+// Import validation function to validate task data
+import { validateTask } from "../utils/validate.js";
 
 // Controller functions to handle task operations (CRUD) for tasks
 export const TaskController = {  
@@ -30,8 +32,12 @@ export const TaskController = {
     // Create a new task with the provided data and send the created task as a JSON response to the client if successful
     async createTask(req, res) {
         const task = req.body;
+        const { error, value } = validateTask(task);
+        if (error) {
+            return res.status(400).json({ error: error.details[0].message });
+        }   
         try {
-            const result = await TaskModel.create(task);
+            const result = await TaskModel.create(value);
             res.status(201).json(result.rows[0]);
         } catch (error) {
             console.error('Error creating task:', error);
@@ -42,8 +48,12 @@ export const TaskController = {
     async updateTask(req, res) {
         const { id } = req.params;
         const task = req.body;
+        const { error, value } = validateTask(task);
+        if (error) {
+            return res.status(400).json({ error: error.details[0].message });
+        }       
         try {
-            const result = await TaskModel.update(id, task);
+            const result = await TaskModel.update(id, value);
             if (result.rows.length === 0) {
                 return res.status(404).json({ error: 'Task not found' });
             }
