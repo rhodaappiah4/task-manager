@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import TaskForm from './components/TaskForm.jsx'
-import TaskList from './components/TaskList.jsx'
+import TaskList from './components/TaskDetails/TaskList.jsx'
 import { getTasks } from './api/tasks.js'
 
 function App() {
@@ -25,11 +25,25 @@ function App() {
     setTasks((prevTasks) => [...prevTasks, newTask])
   }
 
+  const handleTaskUpdated = (updatedTask) => {
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === updatedTask.id ? updatedTask : task
+      )
+    )
+  }
+
+  const handleTaskDeleted = (deletedTaskId) => {
+    setTasks((prevTasks) =>
+      prevTasks.filter((task) => task.id !== deletedTaskId)
+    )
+  }
+
   return (
     <div className="App">
       <h1>Task Management Application</h1>
       <TaskForm onTaskCreated={handleTaskCreated} />
-      <TaskList tasks={tasks} />
+      <TaskList tasks={tasks} onTaskUpdated={handleTaskUpdated} onTaskDeleted={handleTaskDeleted} />
     </div>
   )
 }
