@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { updateTask, deleteTask } from "../../api/tasks";
+import "./TaskItem.css";
+import { FiEdit, FiTrash } from "react-icons/fi";
 
 // Component to display and manage a single task item
 function TaskItem({ task, onTaskUpdated, onTaskDeleted }) {
@@ -56,11 +58,11 @@ function TaskItem({ task, onTaskUpdated, onTaskDeleted }) {
                         <option value="in-progress">In Progress</option>
                         <option value="completed">Completed</option>
                     </select>
-                    <button onClick={handleSave}>Save</button>
-                    <button onClick={() => setIsEditing(false)}>Cancel</button>
+                    <button onClick={handleSave}><FiEdit /></button>
+                    <button onClick={() => setIsEditing(false)}><FiTrash /></button>
                 </div>
             ) : (
-                <div>
+                <div className="task-actions">
                     <h3>{task.title}</h3>
                     <p>{task.description}</p>
                     <p>Status: {task.status}</p>

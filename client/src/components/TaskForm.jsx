@@ -2,6 +2,8 @@
 import { useState } from "react";
 // Import the createTask function from the API module to handle task creation
 import { createTask } from "../api/tasks";
+// Import CSS for styling the TaskForm component
+import "./TaskForm.css";
 
 // Component for the task creation form
 function TaskForm({ onTaskCreated }) {
@@ -32,7 +34,7 @@ function TaskForm({ onTaskCreated }) {
 
     // Render the task creation form
     return (
-        <form onSubmit={handleSubmit}>
+        <form className="task-form" onSubmit={handleSubmit}>
             <div>
                 <label>Title:</label>
                 <input
@@ -61,7 +63,7 @@ function TaskForm({ onTaskCreated }) {
                     <option value="completed">Completed</option>
                 </select>
             </div>
-            <button type="submit">Create Task</button>
+            <button type="submit" disabled={title.trim() === ""}>Create Task</button>
         </form>
     );
 }
