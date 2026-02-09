@@ -2,10 +2,13 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import TaskForm from './components/TaskForm.jsx'
 import TaskList from './components/TaskDetails/TaskList.jsx'
-import { getTasks } from './api/tasks.js'
+import TaskFilters from './components/TaskDetails/TaskFilters.jsx'
+import { getTasks, searchTasks } from './api/tasks.js'
 
 function App() {
   const [tasks, setTasks] = useState([])
+  const [filter, setFilter] = useState('all')
+  const [searchQuery, setSearchQuery] = useState('')
 
   useEffect(() => {
     // Fetch tasks from the API when the component mounts
@@ -19,6 +22,25 @@ function App() {
     }
     fetchTasks()
   }, [])
+
+  useEffect(() => {
+    // Perform search when searchQuery changes
+    async function performSearch() {
+      try {
+        if (searchQuery) {
+          const results = await searchTasks(searchQuery)
+          setTasks(results)
+        } else {
+          // If search query is cleared, fetch all tasks again
+          const data = await getTasks()
+          setTasks(data)
+        }
+      } catch (error) {
+        console.error('Error searching tasks:', error)
+      }
+    }
+    performSearch()
+  }, [searchQuery])
 
   // Handler to add a newly created task to the state
   const handleTaskCreated = (newTask) => {
@@ -39,11 +61,18 @@ function App() {
     )
   }
 
+  const fileredTasks = tasks.filter((task) => {
+    if (filter === 'active') return task.status !== 'completed'
+    if (filter === 'completed') return task.status === 'completed'
+    return true
+  })
+
   return (
     <div className="App">
       <h1>Task Management Application</h1>
       <TaskForm onTaskCreated={handleTaskCreated} />
-      <TaskList tasks={tasks} onTaskUpdated={handleTaskUpdated} onTaskDeleted={handleTaskDeleted} />
+      <TaskFilters filter={filter} setFilter={setFilter} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+      <TaskList tasks={fileredTasks} onTaskUpdated={handleTaskUpdated} onTaskDeleted={handleTaskDeleted} />
     </div>
   )
 }

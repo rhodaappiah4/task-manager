@@ -45,3 +45,11 @@ export async function deleteTask(taskId) {
     }
     return true;
 }   
+
+export async function searchTasks(query) {
+    const response = await fetch(`${API_URL}/search?query=${encodeURIComponent(query)}`);
+    if (!response.ok) {
+        throw new Error('Failed to search tasks');
+    }
+    return await response.json();
+}

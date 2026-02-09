@@ -9,10 +9,6 @@
 .task-item:hover {
   background: #f9fafb;
 }
-.task-item.completed .task-title {
-  text-decoration: line-through;
-  color: #6b7280;
-}
 .task-title {
   flex: 1;
   margin: 0 12px;
@@ -26,4 +22,54 @@
 }
 .task-actions button:hover {
   color: #111827;
+}
+
+/* Edit form (popup-like) styling */
+.task-item .edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  background: #ffffff;
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+  border: 1px solid rgba(17,24,39,0.04);
+}
+.task-item .edit-form input,
+.task-item .edit-form textarea,
+.task-item .edit-form select {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+.task-item .edit-form textarea {
+  min-height: 72px;
+}
+.task-item .edit-buttons {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+.task-item .edit-buttons .save {
+  background: #10b981;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.task-item .edit-buttons .save:hover { background: #059669; }
+.task-item .edit-buttons .cancel {
+  background: transparent;
+  border: 1px solid #d1d5db;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.task-item .edit-buttons .cancel:hover {
+  background: #f3f4f6;
 }

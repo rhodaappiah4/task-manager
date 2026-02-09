@@ -40,7 +40,7 @@ function TaskItem({ task, onTaskUpdated, onTaskDeleted }) {
     return (
         <div className="task-item">
             {isEditing ? (
-                <div>
+                <div className="edit-form">
                     <input
                         type="text"
                         value={editedTitle}
@@ -58,16 +58,18 @@ function TaskItem({ task, onTaskUpdated, onTaskDeleted }) {
                         <option value="in-progress">In Progress</option>
                         <option value="completed">Completed</option>
                     </select>
-                    <button onClick={handleSave}><FiEdit /></button>
-                    <button onClick={() => setIsEditing(false)}><FiTrash /></button>
+                    <div className="edit-buttons">
+                      <button className="save" onClick={handleSave}>Save</button>
+                      <button className="cancel" onClick={() => setIsEditing(false)}>Cancel</button>
+                    </div>
                 </div>
             ) : (
                 <div className="task-actions">
                     <h3>{task.title}</h3>
                     <p>{task.description}</p>
                     <p>Status: {task.status}</p>
-                    <button onClick={() => setIsEditing(true)}>Edit</button>
-                    <button onClick={handleDelete}>Delete</button>
+                    <button onClick={() => setIsEditing(true)}><FiEdit /></button>
+                    <button onClick={handleDelete}><FiTrash /></button>
                 </div>
             )}
         </div>

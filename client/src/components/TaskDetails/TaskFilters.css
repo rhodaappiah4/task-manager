@@ -1,0 +1,30 @@
+.task-filters {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.task-filters input {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+}
+.task-filters input:focus {
+  outline: none;
+  border-color: #6366f1;
+}
+.task-filters label {
+  font-weight: 500;
+  color: #374151;
+}
+.task-filters select {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+}
+.task-filters select:focus {
+  outline: none;
+  border-color: #6366f1;
+}
